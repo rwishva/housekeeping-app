@@ -1,0 +1,297 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+.members-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* .member-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 5px;
+  width: 200px;
+  background-color: #f9f9f9;
+} */
+
+.member-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between name and close button */
+  padding: 8px;
+  margin: 4px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.room-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: grab;
+}
+
+.room-card:active {
+  cursor: grabbing;
+}
+
+.assigned-rooms {
+  margin-top: 10px;
+}
+
+.assigned-rooms ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.assigned-rooms li {
+  background-color: #e0e0e0;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+}
+
+.dirty {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+.assigned {
+  background-color: rgb(209, 208, 207);
+  color: black;
+}
+
+.clean {
+  background-color: rgb(98, 173, 98);
+  color: white;
+}
+
+.completed {
+  background-color: rgb(98, 173, 98);
+  color: white;
+}
+
+.onhold {
+  background-color: rgb(233, 188, 42);
+  color: white;
+}
+
+.started {
+  background-color: rgb(211, 56, 56);
+  color: white;
+}
+
+/* Tab Container */
+.tab-container {
+  display: flex;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  margin-right: 5px;
+  border-radius: 5px 5px 0 0;
+}
+
+.tab.active {
+  background-color: #fff;
+  font-weight: bold;
+}
+
+.tab-content {
+  display: none;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 0 5px 5px 5px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Members Section */
+.members-tab {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.column {
+  flex: 1;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  min-height: 150px;
+}
+
+.member-card {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: grab;
+  
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2sease-in-out;
+  margin: 8px 0;
+  cursor: grab;
+}
+
+.group-card {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+
+.group-members {
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+.empty-group {
+  background-color: #e0e0e0;
+  font-style: italic;
+  padding: 10px;
+  text-align: center;
+}
+
+.empty-members {
+  background-color: #e0e0e0;
+  font-style: italic;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-box {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+}
+
+/* Colors for different member types */
+.housekeeper { background-color: white; } /* Light Salmon */
+.manager { background-color: #a2b9e2; } /* Sky Blue */
+.training { background-color: #f4fb98; } /* Pale Green */
+.supervisor { background-color: #FFD700; } /* Gold */
+.admin { background-color: #D3D3D3; } /* Light Gray */
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+.sub-tab-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.sub-tab {
+  padding: 10px;
+  background: #f0f0f0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sub-tab.active {
+  background: #3498db;
+  color: white;
+}
+
+.sub-tab-content-container {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.close-button {
+  /* display: flex;               Use flexbox for centering */
+  position: relative;
+  top: -2px;
+  justify-content: center;     /* Center horizontally */
+  align-items: center;         /* Center vertically */
+  /* background-color: #fb8b8b; */
+  color: #d9cfcf;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;             /* Slightly increased for better visibility */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  padding: 0;                  /* Remove default padding */
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #fffcfc;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 8px; /* Add some spacing between name and close button */
+  background-color: #bfbbbb;
+}
+  
+  .close-button:hover {
+  background-color: #ff1a1a; /* Darker red on hover */
+  }
+
+  

@@ -1,0 +1,284 @@
+/* Task status color grading */
+.status-initiated {
+    background-color: #9c9c9c; /* Yellow */
+}
+
+.status-assigned {
+    background-color: #dbd9d9; /* Blue */
+    color: rgb(0, 0, 0);
+}
+
+.status-started {
+    background-color: #b1e9b3; /* Green */
+    color: rgb(0, 0, 0);
+}
+
+.status-onhold {
+    background-color: #fdb548; /* Orange */
+    color: rgb(0, 0, 0);
+}
+
+.status-completed {
+    background-color: #41bd46; /* Gray */
+    color: rgb(0, 0, 0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.status-discarded {
+    background-color: #F44336; /* Red */
+    color: rgb(0, 0, 0);
+}
+
+.status-unassigned {
+    background-color: #9c9c9c; /* Light Gray */
+    color: black;
+}
+
+/* Table styling for better visibility */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+tr:hover {
+    /*background-color: #000000;*/
+}
+
+.tooltip {
+    position: absolute;
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    max-width: 300px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+tr:hover {
+    /*background-color: #000000; /* Light gray hover effect */
+    cursor: pointer;
+}
+
+
+button {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /*transition: background 0.3s ease, transform 0.2s ease;*/
+}
+
+.table-wrapper {
+    /* overflow-x: auto; */
+    max-width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 768px) {
+    th, td {
+        font-size: 14px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    border-radius: 5px;
+    min-width: 300px;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* text-align: center; */
+}
+
+.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.btn {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+/* Popup Styling */
+#task-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    max-width: 500px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.popup-content {
+    position: relative;
+    padding: 20px;
+}
+
+.popup-content h3 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 1.5em;
+    color: #333;
+}
+
+#popup-task-details {
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 10px 0;
+    color: #555;
+}
+
+/* Buttons */
+#popup-action-buttons {
+    text-align: center;
+    margin-top: 15px;
+}
+
+#popup-action-buttons button {
+    background: #a3afbb;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 1rem;
+}
+
+#popup-action-buttons button:hover {
+    background: #0056b3;
+}
+
+/* Close Button */
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-popup:hover {
+    color: #000;
+}
+
+/* Background Overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+}
+
+#task-popup.active + body::before {
+    display: block;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -55%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Legends */
+.task-legend {
+    background: #e8f0fe;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left: 4px solid #4285F4;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.task-legend ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task-legend li {
+    padding: 5px 0;
+}
+

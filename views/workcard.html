@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workcard</title>
+  <link rel="stylesheet" href="wc-styles.css">
+</head>
+<body>
+  <h1 id="workcardTitle">Workcard</h1>
+  <h2>Assigned Tasks</h2>
+  <div id="workcard">
+    <table id="roomsTable">
+      <thead>
+        <tr>
+          <th>Room Number</th>
+          <th>Type</th>
+          <th>Current Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be dynamically inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- New table for completed rooms -->
+  <h2>Completed Tasks</h2>
+  <div id="completedRooms">
+    <table id="completedRoomsTable">
+      <thead>
+        <tr>
+          <th>Room Number</th>
+          <th>Type</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be dynamically inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="wc.js"></script>
+</body>
+</html>

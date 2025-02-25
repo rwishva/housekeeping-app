@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Housekeeping Dashboard</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .room-details-pane {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .room:hover {
+            cursor: pointer;
+            background-color: #f0f0f0;
+        }
+        .selected-room {
+            background-color: #d1e9ff; /* Highlight selected room */
+        }
+    </style>
+    <script>
+        let selectedRoomId = null; // Track the currently selected room
+
+        async function fetchRoomDetails(roomId) {
+            if (!roomId) return;
+            
+            try {
+                const response = await fetch(`http://localhost/room-details/${roomId}`);
+                const data = await response.json();
+                updateDashboard(data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+        
+        function updateDashboard(data) {
+            document.getElementById("roomNumber").innerText = data.roomDetails.room_number;
+            document.getElementById("roomType").innerText = data.roomDetails.type;
+            document.getElementById("roomLevel").innerText = data.roomDetails.level;
+            document.getElementById("visitorStatus").innerText = data.roomDetails.visitor_status ? "Active" : "Inactive";
+            
+            const statusElement = document.getElementById("roomStatus");
+            statusElement.innerText = data.roomDetails.status;
+            statusElement.className = data.roomDetails.status === "dirty" ? "px-3 py-1 bg-red-500 text-white rounded-lg" : "px-3 py-1 bg-green-500 text-white rounded-lg";
+            
+            document.getElementById("cleaningDate").innerText = data.roomCleaningDetails.cleaning_date.split("T")[0];
+            document.getElementById("cleaningType").innerText = data.roomCleaningDetails.cleaning_type_id;
+            document.getElementById("currentRoomStatus").innerText = data.roomCleaningDetails.current_room_status === 1 ? "In Progress" : "Completed";
+            
+            const tasksContainer = document.getElementById("tasksContainer");
+            tasksContainer.innerHTML = "";
+            data.tasks.forEach(task => {
+                const taskElement = document.createElement("div");
+                taskElement.className = "bg-gray-50 p-4 rounded-lg shadow mb-3";
+                taskElement.innerHTML = `
+                    <p><strong>Task ID:</strong> ${task.task_id}</p>
+                    <p><strong>Type ID:</strong> ${task.task_type_id}</p>
+                    <p><strong>Estimated Time:</strong> ${task.estimated_time} min</p>
+                    <p><strong>Priority:</strong> <span class="text-blue-500">${task.task_priority}</span></p>
+                    <p><strong>Assigned Member:</strong> ${task.assigned_members.map(member => member.member_name + " (" + member.member_type + ")").join(", ")}</p>
+                    <span class="px-3 py-1 ${task.task_status_id === 2 ? 'bg-yellow-500' : 'bg-green-500'} text-white rounded-lg">
+                        ${task.task_status_id === 2 ? "In Progress" : "Completed"}
+                    </span>
+                `;
+                tasksContainer.appendChild(taskElement);
+            });
+        }
+    </script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div id="main-container" class="max-w-3xl mx-auto"></div>
+    <div id="roomDetailsPane" class="room-details-pane">
+        <div class="bg-white shadow-md rounded-lg p-6 mb-4">
+            <h2 class="text-xl font-bold">Room Details</h2>
+            <div class="flex justify-between items-center mt-2">
+                <div>
+                    <p><strong>Room Number:</strong> <span id="roomNumber"></span></p>
+                    <p><strong>Type:</strong> <span id="roomType"></span></p>
+                    <p><strong>Level:</strong> <span id="roomLevel"></span></p>
+                    <p><strong>Visitor Status:</strong> <span id="visitorStatus"></span></p>
+                </div>
+                <div class="text-right">
+                    <p class="text-lg font-semibold">Status:</p>
+                    <span id="roomStatus" class="px-3 py-1 rounded-lg"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6 mb-4">
+            <h2 class="text-xl font-bold">Cleaning Information</h2>
+            <p><strong>Cleaning Date:</strong> <span id="cleaningDate"></span></p>
+            <p><strong>Cleaning Type:</strong> <span id="cleaningType"></span></p>
+            <p><strong>Current Room Status:</strong> <span id="currentRoomStatus"></span></p>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-bold mb-3">Tasks</h2>
+            <div id="tasksContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const roomContainer = document.getElementById('main-container');
+            const roomDetailsPane = document.getElementById('roomDetailsPane');
+    
+            async function fetchRooms() {
+                const response = await fetch('/rooms');
+                const rooms = await response.json();
+                renderRooms(rooms);
+            }
+
+            function renderRooms(rooms) {
+                roomContainer.innerHTML = ''; // Clear the container
+    
+                // Create a legend container
+                const legendContainer = document.createElement('div');
+                legendContainer.classList.add('legend-container');
+    
+                // Get all unique statuses from the rooms
+                const statuses = [...new Set(rooms.map(room => room.status))];
+    
+                // Create legend items for each status
+                statuses.forEach(status => {
+                    const legendItem = document.createElement('div');
+                    legendItem.classList.add('legend-item');
+    
+                    // Create a color box for the status
+                    const colorBox = document.createElement('div');
+                    colorBox.classList.add('color-box', status);
+                    legendItem.appendChild(colorBox);
+    
+                    // Add the status text
+                    const statusText = document.createElement('span');
+                    statusText.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
+                    legendItem.appendChild(statusText);
+    
+                    // Append the legend item to the legend container
+                    legendContainer.appendChild(legendItem);
+                });
+    
+                // Append the legend to the room container
+                roomContainer.appendChild(legendContainer);
+    
+                // Group rooms by their level
+                const floors = {};
+                rooms.forEach(room => {
+                    if (!floors[room.level]) {
+                        floors[room.level] = [];
+                    }
+                    floors[room.level].push(room);
+                });
+    
+                // Sort levels in descending order (Level 1 will appear last)
+                Object.keys(floors)
+                    .sort((a, b) => b - a) // Sort levels in descending order
+                    .forEach(level => {
+                        const levelContainer = document.createElement('div');
+                        levelContainer.classList.add('main-level-container');
+    
+                        // Add level title
+                        const levelTitle = document.createElement('div');
+                        levelTitle.classList.add('main-level-title');
+                        levelTitle.textContent = `Level ${level}`;
+                        levelContainer.appendChild(levelTitle);
+    
+                        // Create a container for the floor
+                        const floorDiv = document.createElement('div');
+                        floorDiv.classList.add('floor');
+    
+                        // Organize rooms into rows (10 rooms per row)
+                        const rows = [];
+                        let currentRow = document.createElement('div');
+                        currentRow.classList.add('row');
+                        rows.push(currentRow);
+    
+                        // Sort rooms by room number and add them to rows
+                        floors[level]
+                            .sort((a, b) => a.room_number - b.room_number)
+                            .forEach((room, index) => {
+                                const roomDiv = document.createElement('div');
+                                roomDiv.classList.add('room', room.status);
+                                roomDiv.textContent = room.room_number;
+    
+                                // Add click event listener
+                                roomDiv.addEventListener('click', () => {
+                                    // Remove the selected class from the previously selected room
+                                    if (selectedRoomId) {
+                                        const prevSelectedRoom = document.querySelector(`.room[data-room-id="${selectedRoomId}"]`);
+                                        if (prevSelectedRoom) {
+                                            prevSelectedRoom.classList.remove('selected-room');
+                                        }
+                                    }
+    
+                                    // Highlight the clicked room
+                                    roomDiv.classList.add('selected-room');
+                                    selectedRoomId = room.room_id;
+    
+                                    // Fetch and display room details
+                                    fetchRoomDetails(room.room_id);
+                                    roomDetailsPane.style.display = 'block';
+                                });
+    
+                                // Start a new row after every 10 rooms
+                                if (index % 10 === 0 && index !== 0) {
+                                    currentRow = document.createElement('div');
+                                    currentRow.classList.add('row');
+                                    rows.push(currentRow);
+                                }
+                                currentRow.appendChild(roomDiv);
+                            });
+    
+                        // Append rows to the floor container
+                        rows.forEach(row => floorDiv.appendChild(row));
+                        levelContainer.appendChild(floorDiv);
+                        roomContainer.appendChild(levelContainer);
+                    });
+            }
+
+            fetchRooms();
+            setInterval(fetchRooms, 5000); // Refresh every 5 seconds
+        });
+    </script>
+</body>
+</html>

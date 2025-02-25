@@ -1,0 +1,150 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.room-number {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.details {
+    font-size: 14px;
+    color: #666;
+}
+
+.buttons {
+    display: none;
+    gap: 10px;
+    margin-top: 10px;
+    /* display: flex; */
+    justify-content: space-between;
+    margin-left: -5px;
+}
+
+.card.active .buttons {
+    display: flex;
+}
+
+.button {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    box-sizing: border-box;
+    max-width: 33.33%;
+    font-size: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
+}
+.price.grey {
+    color: grey;
+}
+
+.price.green {
+    color: green;
+}
+
+.update { background-color: #e74c3c; color: white; }
+.confirm { background-color: #f1c40f; color: black; }
+.review { background-color: #2ecc71; color: white; }
+
+.distance {
+    font-size: 14px;
+    color: #888;
+}
+
+@media (max-width: 600px) {
+    .button {
+        flex: 1;
+        max-width: 33.33%;
+    }
+}
+
+.bubbles {
+    display: flex;
+    gap: 5px; /* Space between bubbles */
+    margin-top: 5px; /* Space between room number and bubbles */
+}
+
+.bubble {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px; /* Size of the bubble */
+    height: 25px; /* Size of the bubble */
+    border-radius: 50%; /* Make it circular */
+    background-color: #007bff; /* Default bubble color */
+    color: white; /* Text color */
+    font-size: 12px; /* Text size */
+    font-weight: bold;
+}
+.bubble-green {
+    background-color: #2ed573;
+}
+
+.bubble-grey {
+    background-color: grey;
+}
+
+/* Optional: Different colors for different bubbles */
+.bubble:nth-child(1) {
+    background-color: #ff4757; /* Red for priority */
+}
+
+
+
+/* Task status color grading */
+.status-initiated {
+    border-left: 5px solid #9c9c9c;
+    color: #333;
+}
+
+.status-assigned {
+    border-left: 5px solid #9c9c9c;
+    color: #333;
+}
+
+.status-started {
+    border-left: 5px solid #3498db;
+    color: #333;
+}
+
+.status-onhold {
+    border-left: 5px solid #fdb548;
+    color: #333;
+}
+
+.status-completed {
+    border-left: 5px solid #4caf50;
+    color: #333;
+}
+
+.status-discarded {
+    background-color: #F44336; /* Red */
+    color: rgb(0, 0, 0);
+}
+
+.status-unassigned {
+    background-color: #9c9c9c; /* Light Gray */
+    color: black;
+}

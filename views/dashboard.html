@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Housekeeping Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="rooms-to-date.css">
+  <link rel="stylesheet" href="task.css">
+  <link rel="stylesheet" href="rooms.css">
+  <link rel="stylesheet" href="assigned-tasks.css">
+  <link rel="stylesheet" href="my-tasks.css">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="task-cards.css">
+  <link rel="stylesheet" href="requests.css">
+</head>
+<body>
+  <h1>Housekeeping Dashboard</h1>
+  <div id="app">
+    <div class="tab-container">
+      <div class="tab active" data-tab="main">Main</div>
+      <div class="tab" data-tab="rooms">Rooms</div>
+      <div class="tab" data-tab="rooms-to-date">Rooms to Date</div>
+      <div class="tab" data-tab="members">Members & Groups</div>
+      <div class="tab" data-tab="tasks">Tasks</div>
+      <div class="tab" data-tab="assigned-tasks">Task Assignments</div>
+      <!-- <div class="tab" data-tab="members-manage">Members Manage</div> -->
+      <div class="tab" data-tab="task-cards">My Tasks</div>
+      <div class="tab" data-tab="initiate-request">Requests</div>
+    </div>
+    
+    <div id="main" class="tab-content active">
+      <h2>Main Dashboard</h2>
+      <div id="main-container"></div>
+      <div id="popup-overlay">
+        <div id="room-details-container">
+            <button id="close-popup-main">&times;</button>
+            <div class="room-details">
+                <!-- Room details will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="rooms" class="tab-content"></div>
+    <div id="rooms-to-date" class="tab-content">
+      <h2>Room Management</h2>
+      <div class="rooms-tab">
+          <div class="column" id="all-rooms">
+            <h3>All Rooms</h3>
+          </div>
+          <div class="column" id="stay-over-rooms">
+            <h3>Stay Over Rooms</h3>
+          </div>
+          <div class="column" id="arrival-rooms">
+            <h3>Arrival Rooms</h3>
+          </div>
+          <div class="column" id="departure-rooms">
+            <h3>Departure Rooms</h3>
+          </div>
+          <div class="column" id="departure-arrival-rooms">
+            <h3>Departure/Arrival Rooms</h3>
+          </div>
+      </div>
+    </div>
+    <div id="members" class="tab-content">
+      <h2>Members</h2>
+      <div id="legend-container" class="legend"></div>
+      <h3></h3>
+      <div class="members-tab">
+        <div class="column" id="all-members">
+          <h3>All Members</h3>
+        </div>
+        <div class="column" id="members-to-date">
+          <h3>Members to Date</h3>
+        </div>
+        <div class="column" id="groups">
+          <h3>Groups to Date</h3>
+          <div class="empty-group">Drop members here to create a new group</div>
+        </div>
+      </div>
+    </div>
+    <div id="tasks" class="tab-content"></div>
+    <div id="assigned-tasks" class="tab-content"></div>
+    <!-- <div id="members-manage" class="tab-content"></div> -->
+    <div id="task-cards" class="tab-content"></div>
+    <div id="initiate-request" class="tab-content">
+      <h2>Requests</h2>
+      <div id="requests-container"></div>
+    </div>
+  </div>
+  <script src="main.js"></script>
+  <script src="rooms-to-date.js"></script>
+  <script src="task.js"></script>
+  <script src="rooms.js"></script>
+  <script src="assigned-tasks.js"></script>
+  <script src="task-cards.js"></script>
+  <script src="requests.js"></script>
+  <script src="dashboard.js"></script>
+
+
+  <!-- Popup Modal for Updating Room Status -->
+  <div id="statusModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3>Update Room Status</h3>
+        <select id="statusSelect">
+            <option value="available">Available</option>
+            <option value="occupied">Occupied</option>
+            <option value="assigned">Assigned</option>
+            <option value="dirty">Dirty</option>
+            <option value="completed">Completed</option>
+        </select>
+        <button id="updateStatusBtn">Update</button>
+    </div>
+  </div>
+</body>
+</html>

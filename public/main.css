@@ -1,0 +1,199 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: left;
+    margin: 20px;
+}
+.main-level-container {
+    border: 1px solid #d1cbcb;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: fit-content;
+}
+.main-level-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.floor {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: fit-content;
+}
+.row {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+.room {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    cursor: grab;
+    margin-left: 10px;
+    /* border: 1px; */
+}
+.assigned {
+    color: #555;
+}
+.dirty {
+    /* border-left: 5px solid #000000; */
+    color: #555;
+}
+.available {
+    /* background-color: green; */
+    color: #555;
+}
+.completed {
+    /* background-color: #4CAF50; */
+    color: #555;
+}
+
+.room:hover {
+    transform: scale(1.1);
+}
+
+.legend-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.color-box {
+    width: 15px;
+    height: 15px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Popup Overlay */
+#popup-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+/* Popup Container */
+#room-details-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+}
+
+/* Close Button */
+#close-popup-main {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+#close-popup:hover {
+    color: #e74c3c; /* Change color on hover */
+}
+
+/* Room Details Styling */
+.room-details {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.room-details h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.room-details h3 {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #34495e;
+}
+
+.room-details p {
+    font-size: 16px;
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+.room-details ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.room-details ul li {
+    /* background-color: #ecf0f1; */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    /* border: 1px solid #ffffff; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Task Status Colors */
+.task-status-1 { background-color: #9c9c9c; } /* Initiated - Yellow */
+.task-status-2 { background-color: #dbd9d9; } /* Assigned - Blue */
+.task-status-3 { background-color: #b1e9b3; } /* Started - Green */
+.task-status-4 { background-color: #fdb548; } /* On Hold - Orange */
+.task-status-5 { background-color: #41bd46; } /* Completed - Dark Green */
+.task-status-6 { background-color: #F44336; } /* Discarded - Red */
+.task-status-7 { background-color: #9c9c9c; } /* Unassigned - Gray */
+
+
+.room-details ul li p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* Task Details Styling */
+.room-details ul li p strong {
+    color: #e74c3c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #room-details-container {
+        padding: 15px;
+    }
+
+    .room-details h2 {
+        font-size: 20px;
+    }
+
+    .room-details h3 {
+        font-size: 18px;
+    }
+
+    .room-details p {
+        font-size: 14px;
+    }
+
+    .room-details ul li p {
+        font-size: 12px;
+    }
+}
